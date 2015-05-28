@@ -1,38 +1,43 @@
 package capgov.dia_1_helloworld;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
-    int d = 0;
+public class MainActivity5 extends ActionBarActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_activity5);
 
-        final TextView hello = (TextView) findViewById(R.id.textView);
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d++;
-                hello.setText(getString(R.string.contagem, d));
+        final TextView user = (TextView) findViewById(R.id.user);
+        final TextView pass = (TextView) findViewById(R.id.password);
 
-            }
-        });
+
+
+        SharedPreferences sharedpreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        String user1 = sharedpreferences.getString("Usuario", null);
+        String pass1 = sharedpreferences.getString("Senha", null);
+        Usuario usuario = new Usuario(user1, pass1);
+
+        user.setText(usuario.getNome().toString());
+        pass.setText(usuario.getSenha().toString());
+
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main_activity5, menu);
         return true;
     }
 
